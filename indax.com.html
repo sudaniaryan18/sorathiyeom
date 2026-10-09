@@ -1,0 +1,1538 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NEXUS AI Academy | Next-Gen Spirit Store</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <!-- Google Fonts: Inter & Outfit -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            display: ['Outfit', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              teal: '#00F5D4',
+              tealDark: '#00BFA5',
+              violet: '#7B2CBF',
+              cyan: '#00BBF9',
+              dark: '#0B0F19',
+              card: '#131B2E',
+              border: '#1E293B',
+              surface: '#1A2338',
+            }
+          },
+          animation: {
+            'glow-pulse': 'glowPulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+            'float': 'float 4s ease-in-out infinite',
+          },
+          keyframes: {
+            glowPulse: {
+              '0%, 100%': { opacity: '0.4', transform: 'scale(1)' },
+              '50%': { opacity: '0.8', transform: 'scale(1.05)' },
+            },
+            float: {
+              '0%, 100%': { transform: 'translateY(0px)' },
+              '50%': { transform: 'translateY(-10px)' },
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    /* Custom scrollbar for sleek dark-mode look */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0B0F19;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #1E293B;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #00F5D4;
+    }
+    .neon-border {
+      box-shadow: 0 0 15px -3px rgba(0, 245, 212, 0.2);
+    }
+    .neon-glow-btn {
+      box-shadow: 0 0 20px rgba(0, 245, 212, 0.35);
+    }
+    .text-glow {
+      text-shadow: 0 0 20px rgba(0, 245, 212, 0.4);
+    }
+  </style>
+</head>
+<body class="bg-[#080C15] text-slate-100 font-sans selection:bg-brand-teal selection:text-black min-h-screen flex flex-col relative overflow-x-hidden">
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container" class="fixed bottom-6 right-6 z-50 flex flex-col gap-3 pointer-events-none max-w-sm w-full px-4 sm:px-0"></div>
+
+  <!-- Announcement Bar -->
+  <div class="bg-gradient-to-r from-brand-violet via-indigo-900 to-brand-teal text-slate-900 font-semibold text-xs py-2 px-4 text-center tracking-wide flex items-center justify-center gap-2">
+    <span class="bg-black/80 text-brand-teal px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-widest border border-brand-teal/40">Fall 2026 Drop</span>
+    <span class="text-white">AI-Powered Print-On-Demand Merch • Free Campus Delivery with code <strong class="underline decoration-brand-teal">FUTURIST10</strong></span>
+  </div>
+
+  <header class="sticky top-0 z-40 backdrop-blur-xl bg-[#080C15]/90 border-b border-brand-border/60 transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      
+      <!-- Brand Logo -->
+      <a href="#" class="flex items-center gap-3 group">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-violet to-brand-teal flex items-center justify-center shadow-lg shadow-brand-teal/20 group-hover:scale-105 transition-transform">
+          <i class="fa-solid fa-microchip text-brand-dark text-lg"></i>
+        </div>
+        <div>
+          <span class="font-display font-extrabold text-xl tracking-tight text-white flex items-center gap-1.5">
+            NEXUS <span class="text-brand-teal">AI</span>
+          </span>
+          <span class="block text-[10px] uppercase font-bold tracking-widest text-slate-400">Academy Store</span>
+        </div>
+      </a>
+
+      <!-- Desktop Navigation Links -->
+      <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-300">
+        <a href="#catalog" class="hover:text-brand-teal transition-colors flex items-center gap-1.5">
+          <i class="fa-solid fa-shapes text-xs text-brand-teal"></i> Catalog
+        </a>
+        <a href="#customizer" class="hover:text-brand-teal transition-colors flex items-center gap-1.5">
+          <i class="fa-solid fa-wand-magic-sparkles text-xs text-brand-cyan"></i> Live Studio
+        </a>
+        <a href="#prompt-lab" class="hover:text-brand-teal transition-colors flex items-center gap-1.5">
+          <i class="fa-solid fa-terminal text-xs text-brand-violet"></i> AI Prompt Vault
+        </a>
+        <a href="#tech-specs" class="hover:text-brand-teal transition-colors flex items-center gap-1.5">
+          <i class="fa-solid fa-bolt text-xs text-amber-400"></i> POD Tech
+        </a>
+      </nav>
+
+      <!-- Right Header Actions -->
+      <div class="flex items-center gap-3">
+        <!-- Quick Customizer Trigger -->
+        <a href="#customizer" class="hidden sm:inline-flex items-center gap-2 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 hover:border-brand-teal/50 px-3.5 py-2 rounded-xl text-xs font-semibold transition-all">
+          <i class="fa-solid fa-palette text-brand-teal"></i>
+          <span>Design Studio</span>
+        </a>
+
+        <!-- Cart Button -->
+        <button id="open-cart-btn" class="relative bg-brand-surface hover:bg-brand-surface/80 border border-brand-border p-2.5 rounded-xl transition-all group" aria-label="Open Cart">
+          <i class="fa-solid fa-bag-shopping text-slate-300 group-hover:text-brand-teal text-lg"></i>
+          <span id="cart-counter" class="absolute -top-1.5 -right-1.5 bg-brand-teal text-slate-950 font-bold text-xs w-5 h-5 rounded-full flex items-center justify-center shadow-md">0</span>
+        </button>
+
+        <!-- Mobile Menu Toggle Button -->
+        <button id="mobile-menu-btn" class="md:hidden text-slate-300 hover:text-white p-2 rounded-lg" aria-label="Toggle Navigation">
+          <i class="fa-solid fa-bars text-xl"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Navigation Drawer -->
+    <div id="mobile-menu" class="hidden md:hidden border-b border-brand-border bg-brand-card/95 px-6 py-4 flex flex-col gap-4 text-sm font-medium">
+      <a href="#catalog" class="mobile-nav-link text-slate-200 hover:text-brand-teal flex items-center gap-2 py-1"><i class="fa-solid fa-shapes text-brand-teal"></i> Merch Catalog</a>
+      <a href="#customizer" class="mobile-nav-link text-slate-200 hover:text-brand-teal flex items-center gap-2 py-1"><i class="fa-solid fa-wand-magic-sparkles text-brand-cyan"></i> Live 3D/Vector Studio</a>
+      <a href="#prompt-lab" class="mobile-nav-link text-slate-200 hover:text-brand-teal flex items-center gap-2 py-1"><i class="fa-solid fa-terminal text-brand-violet"></i> AI Prompt Generator</a>
+      <a href="#tech-specs" class="mobile-nav-link text-slate-200 hover:text-brand-teal flex items-center gap-2 py-1"><i class="fa-solid fa-bolt text-amber-400"></i> Print-On-Demand Specs</a>
+    </div>
+  </header>
+
+  <main class="flex-grow">
+    <section class="relative pt-12 pb-20 lg:pt-20 lg:pb-28 overflow-hidden">
+      <!-- Glow Gradients in Background -->
+      <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] bg-brand-violet/20 rounded-full blur-[140px] pointer-events-none -z-10 animate-glow-pulse"></div>
+      <div class="absolute top-1/3 left-1/4 w-[400px] h-[300px] bg-brand-teal/15 rounded-full blur-[120px] pointer-events-none -z-10"></div>
+
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          
+          <!-- Hero Copy -->
+          <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+            <div class="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-brand-card border border-brand-teal/30 text-xs text-brand-teal font-medium">
+              <span class="w-2 h-2 rounded-full bg-brand-teal animate-ping"></span>
+              Generated with Midjourney v6 + Automated Vector Pipeline
+            </div>
+
+            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-display font-black tracking-tight text-white leading-[1.1]">
+              School Spirit, <br class="hidden sm:inline">
+              <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-teal via-cyan-400 to-indigo-400 text-glow">
+                Engineered By AI.
+              </span>
+            </h1>
+
+            <p class="text-base sm:text-lg text-slate-300 max-w-2xl mx-auto lg:mx-0 leading-relaxed font-normal">
+              Represent <span class="text-white font-medium">Nexus Academy</span> with print-on-demand varsity athletics, cyberpunk mascots, and high-frequency tech merch. Customize live or prompt your own club design in seconds.
+            </p>
+
+            <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
+              <a href="#customizer" class="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-7 py-3.5 rounded-xl bg-brand-teal hover:bg-brand-tealDark text-slate-950 font-display font-bold text-sm tracking-wide transition-all transform hover:-translate-y-0.5 neon-glow-btn">
+                <i class="fa-solid fa-paintbrush"></i>
+                Launch Live Mockup Studio
+              </a>
+              <a href="#catalog" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-brand-card hover:bg-slate-800 border border-slate-700 text-slate-200 font-semibold text-sm transition-all">
+                <i class="fa-solid fa-layer-group text-brand-teal"></i>
+                Explore Fall Drops
+              </a>
+            </div>
+
+            <!-- Fast Stats / Trust Badges -->
+            <div class="grid grid-cols-3 gap-4 pt-6 border-t border-brand-border/60 max-w-lg mx-auto lg:mx-0">
+              <div>
+                <p class="text-2xl font-bold font-display text-white">300 DPI</p>
+                <p class="text-xs text-slate-400">Vector Print Ready</p>
+              </div>
+              <div>
+                <p class="text-2xl font-bold font-display text-brand-teal">0-Waste</p>
+                <p class="text-xs text-slate-400">Print-On-Demand</p>
+              </div>
+              <div>
+                <p class="text-2xl font-bold font-display text-brand-cyan">72 Hrs</p>
+                <p class="text-xs text-slate-400">Rapid Campus Ship</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="lg:col-span-5 relative flex justify-center">
+            <div class="w-full max-w-md bg-gradient-to-b from-brand-card to-brand-dark border border-brand-border/80 rounded-3xl p-6 shadow-2xl relative group">
+              <!-- Floating AI Badge -->
+              <div class="absolute -top-3 -right-3 bg-gradient-to-r from-brand-violet to-brand-teal text-slate-950 font-display font-extrabold text-[11px] px-3.5 py-1.5 rounded-full shadow-lg flex items-center gap-1.5 animate-float">
+                <i class="fa-solid fa-wand-magic-sparkles"></i>
+                POPULAR CHOICE
+              </div>
+
+              <!-- Hero Visual Mockup Container -->
+              <div class="relative bg-[#0F1626] rounded-2xl p-6 border border-brand-border flex items-center justify-center min-h-[340px] overflow-hidden">
+                <!-- Interactive SVG Preview of the Flagship Hoodie -->
+                <svg id="hero-hoodie-svg" viewBox="0 0 400 400" class="w-64 h-64 drop-shadow-2xl transition-all duration-300">
+                  <!-- Hoodie Silhouette -->
+                  <path id="hero-hoodie-body" d="M120,95 L145,50 L255,50 L280,95 L360,150 L315,200 L285,165 L285,340 L115,340 L115,165 L85,200 L40,150 Z" fill="#131B2E" stroke="#334155" stroke-width="3" stroke-linejoin="round" />
+                  <!-- Hood details -->
+                  <path d="M150,55 Q200,90 250,55 Q200,120 150,55" fill="#0D131F" stroke="#334155" stroke-width="2" />
+                  <!-- Drawstrings -->
+                  <path d="M185,100 L185,145" stroke="#00F5D4" stroke-width="2.5" stroke-linecap="round" />
+                  <path d="M215,100 L215,145" stroke="#00F5D4" stroke-width="2.5" stroke-linecap="round" />
+                  <!-- Front Kangaroo Pocket -->
+                  <path d="M145,260 L255,260 L240,320 L160,320 Z" fill="#0F1628" stroke="#334155" stroke-width="1.5" />
+                  <!-- Centered Cyber Owl Graphic Badge -->
+                  <g transform="translate(155, 135) scale(0.9)">
+                    <circle cx="50" cy="50" r="44" fill="#0A0F1D" stroke="#00F5D4" stroke-width="2.5" />
+                    <!-- Geometric Owl Silhouette -->
+                    <polygon points="50,22 68,36 68,60 50,78 32,60 32,36" fill="#7B2CBF" opacity="0.8" />
+                    <circle cx="43" cy="46" r="4.5" fill="#00F5D4" />
+                    <circle cx="57" cy="46" r="4.5" fill="#00F5D4" />
+                    <line x1="28" y1="50" x2="18" y2="50" stroke="#00F5D4" stroke-width="2" />
+                    <line x1="72" y1="50" x2="82" y2="50" stroke="#00F5D4" stroke-width="2" />
+                    <text x="50" y="88" fill="#F8FAFC" font-family="'Outfit', sans-serif" font-size="7" font-weight="bold" text-anchor="middle" letter-spacing="1">ACADEMY 2026</text>
+                  </g>
+                </svg>
+
+                <div class="absolute bottom-3 left-4 bg-brand-dark/90 backdrop-blur px-3 py-1 rounded-lg border border-brand-border text-[11px] text-slate-300 font-mono">
+                  Prompt: <span class="text-brand-teal">Cyber Owl v6.1</span>
+                </div>
+              </div>
+
+              <!-- Item Mini Details -->
+              <div class="mt-5 flex items-center justify-between">
+                <div>
+                  <h3 class="font-display font-bold text-lg text-white">Quantum Tech-Fleece Hoodie</h3>
+                  <p class="text-xs text-slate-400">Cyber Obsidian / Neon Teal Print</p>
+                </div>
+                <div class="text-right">
+                  <span class="text-xs text-slate-400 line-through">$68</span>
+                  <span class="block text-xl font-display font-extrabold text-brand-teal">$52.00</span>
+                </div>
+              </div>
+
+              <div class="mt-4 flex gap-2">
+                <button onclick="quickAddToCart(1)" class="flex-1 bg-brand-teal hover:bg-brand-tealDark text-slate-950 font-bold py-2.5 px-4 rounded-xl text-xs transition-colors flex items-center justify-center gap-2">
+                  <i class="fa-solid fa-cart-plus"></i> Instant Add to Cart
+                </button>
+                <a href="#customizer" class="bg-slate-800 hover:bg-slate-700 border border-slate-700 text-white p-2.5 rounded-xl text-xs transition-colors flex items-center justify-center px-3" title="Customize this item">
+                  <i class="fa-solid fa-sliders"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <section id="customizer" class="py-16 bg-[#0B101E] border-y border-brand-border relative">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="text-center max-w-3xl mx-auto mb-12">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-surface border border-brand-cyan/30 text-xs text-brand-cyan font-mono mb-3">
+            <i class="fa-solid fa-wand-magic-sparkles"></i> LIVE APPAREL COMPOSER
+          </div>
+          <h2 class="text-3xl sm:text-4xl font-display font-black text-white tracking-tight">
+            Interactive AI Merch Studio
+          </h2>
+          <p class="text-slate-400 text-sm sm:text-base mt-2">
+            Switch products, test AI generative graphics, customize text, and tweak dye shades in real time before checkout.
+          </p>
+        </div>
+
+        <!-- Studio Grid Layout -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          
+          <!-- Mockup Visualizer (Left Canvas / SVG Viewer) -->
+          <div class="lg:col-span-7 bg-brand-card border border-brand-border rounded-3xl p-6 sm:p-8 flex flex-col items-center justify-center relative min-h-[460px]">
+            <!-- Top Controls in Visualizer -->
+            <div class="w-full flex items-center justify-between mb-4 pb-3 border-b border-brand-border/60">
+              <div class="flex items-center gap-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-brand-teal animate-pulse"></span>
+                <span id="studio-product-title" class="font-display font-bold text-sm text-slate-200">Heavyweight Varsity Spirit Hoodie</span>
+              </div>
+              <button onclick="resetCustomizer()" class="text-xs text-slate-400 hover:text-white flex items-center gap-1">
+                <i class="fa-solid fa-rotate-left"></i> Reset
+              </button>
+            </div>
+
+            <!-- Dynamic SVG Container -->
+            <div id="mockup-canvas-wrapper" class="w-full max-w-md h-80 flex items-center justify-center relative">
+              <svg id="interactive-mockup-svg" viewBox="0 0 400 400" class="w-full h-full max-h-72 transition-all duration-300 drop-shadow-2xl">
+                <!-- SVG Content is dynamically generated by JS -->
+              </svg>
+            </div>
+
+            <!-- Live specs ticker -->
+            <div class="w-full mt-4 pt-4 border-t border-brand-border/60 grid grid-cols-3 gap-2 text-center text-xs">
+              <div class="bg-slate-900/60 p-2 rounded-xl">
+                <span class="text-slate-400 block text-[10px] uppercase font-bold">Apparel Color</span>
+                <span id="selected-color-label" class="text-white font-medium">Obsidian Dark</span>
+              </div>
+              <div class="bg-slate-900/60 p-2 rounded-xl">
+                <span class="text-slate-400 block text-[10px] uppercase font-bold">Design Mode</span>
+                <span id="selected-graphic-label" class="text-brand-teal font-medium">Vintage Athletic</span>
+              </div>
+              <div class="bg-slate-900/60 p-2 rounded-xl">
+                <span class="text-slate-400 block text-[10px] uppercase font-bold">Estimated Cost</span>
+                <span id="custom-price-tag" class="text-brand-cyan font-bold font-display">$48.00</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="lg:col-span-5 bg-brand-card/90 border border-brand-border rounded-3xl p-6 sm:p-7 space-y-6">
+            
+            <!-- 1. Pick Merchandise Base Item -->
+            <div>
+              <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">
+                1. Select Base Merchandise
+              </label>
+              <div class="grid grid-cols-3 gap-2.5">
+                <button type="button" onclick="setCustomProduct('hoodie')" class="product-type-btn active bg-slate-800 border-2 border-brand-teal p-3 rounded-2xl flex flex-col items-center gap-1.5 text-center transition-all" data-type="hoodie">
+                  <i class="fa-solid fa-shirt text-brand-teal text-lg"></i>
+                  <span class="text-xs font-semibold text-white">Hoodie</span>
+                </button>
+                <button type="button" onclick="setCustomProduct('tee')" class="product-type-btn bg-slate-800 border border-slate-700 hover:border-slate-500 p-3 rounded-2xl flex flex-col items-center gap-1.5 text-center transition-all" data-type="tee">
+                  <i class="fa-solid fa-tshirt text-slate-300 text-lg"></i>
+                  <span class="text-xs font-semibold text-slate-300">Graphic Tee</span>
+                </button>
+                <button type="button" onclick="setCustomProduct('bottle')" class="product-type-btn bg-slate-800 border border-slate-700 hover:border-slate-500 p-3 rounded-2xl flex flex-col items-center gap-1.5 text-center transition-all" data-type="bottle">
+                  <i class="fa-solid fa-bottle-water text-slate-300 text-lg"></i>
+                  <span class="text-xs font-semibold text-slate-300">Hydro Flask</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- 2. AI Graphic Design Styles (Prompt Presets) -->
+            <div>
+              <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">
+                2. AI Graphic Style Presets
+              </label>
+              <div class="grid grid-cols-2 gap-2">
+                <button type="button" onclick="setCustomGraphic('vintage')" class="graphic-style-btn active bg-slate-800 border-2 border-brand-teal p-3 rounded-xl text-left transition-all text-xs" data-style="vintage">
+                  <div class="font-bold text-white flex items-center gap-1.5">
+                    <i class="fa-solid fa-graduation-cap text-amber-400"></i> Retro Varsity
+                  </div>
+                  <div class="text-[10px] text-slate-400 mt-0.5">Distressed athletic typography</div>
+                </button>
+
+                <button type="button" onclick="setCustomGraphic('owl')" class="graphic-style-btn bg-slate-800 border border-slate-700 hover:border-slate-500 p-3 rounded-xl text-left transition-all text-xs" data-style="owl">
+                  <div class="font-bold text-white flex items-center gap-1.5">
+                    <i class="fa-solid fa-robot text-brand-teal"></i> Cyber Owl
+                  </div>
+                  <div class="text-[10px] text-slate-400 mt-0.5">Geometric circuit lines</div>
+                </button>
+
+                <button type="button" onclick="setCustomGraphic('neural')" class="graphic-style-btn bg-slate-800 border border-slate-700 hover:border-slate-500 p-3 rounded-xl text-left transition-all text-xs" data-style="neural">
+                  <div class="font-bold text-white flex items-center gap-1.5">
+                    <i class="fa-solid fa-brain text-brand-violet"></i> Neural Crest
+                  </div>
+                  <div class="text-[10px] text-slate-400 mt-0.5">Synaptic badge vector</div>
+                </button>
+
+                <button type="button" onclick="setCustomGraphic('minimal')" class="graphic-style-btn bg-slate-800 border border-slate-700 hover:border-slate-500 p-3 rounded-xl text-left transition-all text-xs" data-style="minimal">
+                  <div class="font-bold text-white flex items-center gap-1.5">
+                    <i class="fa-solid fa-code text-cyan-400"></i> Binary Monogram
+                  </div>
+                  <div class="text-[10px] text-slate-400 mt-0.5">Clean high-tech badge</div>
+                </button>
+              </div>
+            </div>
+
+            <!-- 3. Base Fabric / Item Color Palettes -->
+            <div>
+              <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">
+                3. Choose Apparel Shade
+              </label>
+              <div class="flex items-center gap-3">
+                <button type="button" onclick="setFabricColor('#131B2E', 'Obsidian Navy')" class="color-btn w-9 h-9 rounded-full bg-[#131B2E] border-2 border-white ring-2 ring-brand-teal transition-transform transform scale-110" data-color="#131B2E" title="Obsidian Navy"></button>
+                <button type="button" onclick="setFabricColor('#0B0F19', 'Pitch Carbon')" class="color-btn w-9 h-9 rounded-full bg-[#0B0F19] border-2 border-slate-600 hover:border-white transition-all" data-color="#0B0F19" title="Pitch Carbon"></button>
+                <button type="button" onclick="setFabricColor('#8A1834', 'Varsity Crimson')" class="color-btn w-9 h-9 rounded-full bg-[#8A1834] border-2 border-slate-600 hover:border-white transition-all" data-color="#8A1834" title="Varsity Crimson"></button>
+                <button type="button" onclick="setFabricColor('#1A3B34', 'Cyber Pine')" class="color-btn w-9 h-9 rounded-full bg-[#1A3B34] border-2 border-slate-600 hover:border-white transition-all" data-color="#1A3B34" title="Cyber Pine"></button>
+                <button type="button" onclick="setFabricColor('#E2E8F0', 'Chalk Silver')" class="color-btn w-9 h-9 rounded-full bg-[#E2E8F0] border-2 border-slate-600 hover:border-white transition-all" data-color="#E2E8F0" title="Chalk Silver"></button>
+              </div>
+            </div>
+
+            <!-- 4. Custom School Name / Student Handle -->
+            <div>
+              <label for="custom-text-input" class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">
+                4. Custom Typography / Student Name
+              </label>
+              <div class="relative">
+                <input id="custom-text-input" type="text" maxlength="16" value="ACADEMY" oninput="updateCustomText(this.value)" placeholder="Enter name or year" class="w-full bg-slate-900 border border-brand-border rounded-xl py-2.5 px-3.5 text-sm text-white focus:outline-none focus:border-brand-teal transition-colors uppercase font-display font-semibold tracking-wider">
+                <span class="absolute right-3 top-2.5 text-xs text-slate-500 font-mono">Max 16</span>
+              </div>
+            </div>
+
+            <!-- Size Selector -->
+            <div>
+              <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">
+                5. Sizing
+              </label>
+              <div class="grid grid-cols-6 gap-1.5 text-center text-xs font-bold">
+                <button type="button" onclick="setSize(this, 'XS')" class="size-btn py-2 rounded-lg bg-slate-800 border border-slate-700 hover:border-brand-teal">XS</button>
+                <button type="button" onclick="setSize(this, 'S')" class="size-btn py-2 rounded-lg bg-slate-800 border border-slate-700 hover:border-brand-teal">S</button>
+                <button type="button" onclick="setSize(this, 'M')" class="size-btn active py-2 rounded-lg bg-brand-teal text-slate-950 font-extrabold border border-brand-teal">M</button>
+                <button type="button" onclick="setSize(this, 'L')" class="size-btn py-2 rounded-lg bg-slate-800 border border-slate-700 hover:border-brand-teal">L</button>
+                <button type="button" onclick="setSize(this, 'XL')" class="size-btn py-2 rounded-lg bg-slate-800 border border-slate-700 hover:border-brand-teal">XL</button>
+                <button type="button" onclick="setSize(this, '2XL')" class="size-btn py-2 rounded-lg bg-slate-800 border border-slate-700 hover:border-brand-teal">2X</button>
+              </div>
+            </div>
+
+            <!-- Add Customized Item to Cart -->
+            <button onclick="addCustomizedProductToCart()" class="w-full py-3.5 bg-gradient-to-r from-brand-teal via-cyan-400 to-brand-teal text-slate-950 font-display font-black text-sm uppercase tracking-wider rounded-xl hover:opacity-95 transition-all flex items-center justify-center gap-2 shadow-lg shadow-brand-teal/20">
+              <i class="fa-solid fa-cart-shopping"></i> Add Custom Design To Cart
+            </button>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <section id="catalog" class="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <!-- Catalog Header -->
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
+        <div>
+          <span class="text-brand-teal text-xs font-bold tracking-widest uppercase font-mono">Curated Drops</span>
+          <h2 class="text-3xl sm:text-4xl font-display font-extrabold text-white mt-1">Official Academy Apparel</h2>
+          <p class="text-slate-400 text-sm mt-1">Direct-to-garment vector prints made with eco-friendly water-based inks.</p>
+        </div>
+
+        <!-- Category Filter Pills -->
+        <div class="flex flex-wrap gap-2">
+          <button onclick="filterCatalog('all')" class="cat-pill active px-4 py-2 rounded-xl text-xs font-semibold bg-brand-teal text-slate-950 transition-all">All Items</button>
+          <button onclick="filterCatalog('hoodies')" class="cat-pill px-4 py-2 rounded-xl text-xs font-semibold bg-brand-card hover:bg-slate-800 text-slate-300 border border-brand-border transition-all">Hoodies</button>
+          <button onclick="filterCatalog('tees')" class="cat-pill px-4 py-2 rounded-xl text-xs font-semibold bg-brand-card hover:bg-slate-800 text-slate-300 border border-brand-border transition-all">Tees</button>
+          <button onclick="filterCatalog('accessories')" class="cat-pill px-4 py-2 rounded-xl text-xs font-semibold bg-brand-card hover:bg-slate-800 text-slate-300 border border-brand-border transition-all">Tech Gear</button>
+        </div>
+      </div>
+
+      <!-- Catalog Product Grid -->
+      <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- Products populated via JavaScript -->
+      </div>
+    </section>
+
+    <section id="prompt-lab" class="py-16 bg-gradient-to-b from-brand-card/40 to-[#080C15] border-t border-brand-border">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="bg-gradient-to-r from-brand-card via-[#111A30] to-brand-card border border-brand-border rounded-3xl p-8 lg:p-12 relative overflow-hidden">
+          <!-- Background decoration -->
+          <div class="absolute right-0 top-0 translate-x-12 -translate-y-12 w-96 h-96 bg-brand-violet/10 rounded-full blur-3xl pointer-events-none"></div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+            
+            <div class="lg:col-span-6 space-y-4">
+              <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-violet/20 border border-brand-violet/40 text-brand-teal text-xs font-mono font-medium">
+                <i class="fa-solid fa-terminal"></i> MIDJOURNEY & DALL-E PROMPT LAB
+              </div>
+              
+              <h2 class="text-3xl sm:text-4xl font-display font-extrabold text-white">
+                Generate Custom AI Merch Prompts for Your Club
+              </h2>
+              
+              <p class="text-slate-300 text-sm leading-relaxed">
+                Need fresh graphics for your Robotics team, Esports roster, or Math Olympiad squad? Select your team style below and get instant, tested text-to-image prompts formatted for 300 DPI vector apparel printing.
+              </p>
+
+              <!-- Dynamic prompt form -->
+              <div class="space-y-3 pt-2">
+                <div class="grid grid-cols-2 gap-3">
+                  <div>
+                    <label class="block text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-1">Club / Organization</label>
+                    <select id="prompt-club-select" onchange="generateClubPrompt()" class="w-full bg-slate-900 border border-brand-border rounded-xl p-2.5 text-xs text-white focus:outline-none focus:border-brand-teal">
+                      <option value="Robotics & Autonomous Systems">Robotics & AI Club</option>
+                      <option value="Esports & Cyber Athletics">Esports & Gaming Team</option>
+                      <option value="Quantum Computing & Math Society">Quantum Math Society</option>
+                      <option value="Biotech & Synthetic Biology">Biotech Explorers</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label class="block text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-1">Aesthetic Archetype</label>
+                    <select id="prompt-aesthetic-select" onchange="generateClubPrompt()" class="w-full bg-slate-900 border border-brand-border rounded-xl p-2.5 text-xs text-white focus:outline-none focus:border-brand-teal">
+                      <option value="Retro Varsity Athletic">Retro Varsity Distressed</option>
+                      <option value="Cyberpunk Geometric Neon">Cyberpunk Geometric Neon</option>
+                      <option value="Minimalist Tech Emblem">Minimalist Clean Vector</option>
+                      <option value="Japanese Mecha Emblem">Mecha High-Tech Crest</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Prompt Display Card -->
+            <div class="lg:col-span-6">
+              <div class="bg-slate-950/90 border border-brand-border rounded-2xl p-5 shadow-2xl relative font-mono text-xs">
+                <div class="flex items-center justify-between pb-3 mb-3 border-b border-slate-800 text-slate-400">
+                  <span class="flex items-center gap-2">
+                    <span class="w-3 h-3 rounded-full bg-rose-500/80 inline-block"></span>
+                    <span class="w-3 h-3 rounded-full bg-amber-500/80 inline-block"></span>
+                    <span class="w-3 h-3 rounded-full bg-emerald-500/80 inline-block"></span>
+                    <span class="ml-2 text-slate-300 font-bold">Midjourney v6.1 / DALL-E 3 Ready</span>
+                  </span>
+                  <button onclick="copyGeneratedPrompt()" class="bg-brand-surface hover:bg-slate-800 text-brand-teal px-3 py-1.5 rounded-lg border border-brand-border flex items-center gap-1.5 text-xs font-sans transition-colors">
+                    <i class="fa-solid fa-copy"></i>
+                    <span id="copy-btn-text">Copy Prompt</span>
+                  </button>
+                </div>
+
+                <div class="text-slate-300 leading-relaxed min-h-[110px] break-words" id="generated-prompt-output">
+                  <!-- Prompt content inserted dynamically -->
+                </div>
+
+                <div class="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-[11px] text-slate-400 font-sans">
+                  <span>Aspect ratio: <strong class="text-slate-200">--ar 1:1</strong></span>
+                  <span>Rendering: <strong class="text-slate-200">Vector isolated, 300 DPI</strong></span>
+                  <span class="text-brand-teal">No background</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section id="tech-specs" class="py-16 border-t border-brand-border/60">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="text-center max-w-2xl mx-auto mb-12">
+          <span class="text-brand-cyan text-xs font-bold tracking-widest uppercase font-mono">Sustainable Pipeline</span>
+          <h2 class="text-3xl font-display font-extrabold text-white mt-1">Zero Overstock. Print on Demand.</h2>
+          <p class="text-slate-400 text-sm mt-1">How our AI design system integrates with modern DTG and automated apparel fulfillment.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="bg-brand-card border border-brand-border p-6 rounded-2xl">
+            <div class="w-12 h-12 rounded-xl bg-brand-violet/20 border border-brand-violet/40 flex items-center justify-center text-brand-teal text-xl mb-4">
+              <i class="fa-solid fa-wand-magic-sparkles"></i>
+            </div>
+            <h3 class="font-display font-bold text-white text-lg">1. Generative Vectorization</h3>
+            <p class="text-slate-400 text-sm mt-2 leading-relaxed">
+              Designs generated from Midjourney and DALL-E are automatically upscaled and converted to SVG vectors to eliminate pixelation during garment press.
+            </p>
+          </div>
+
+          <div class="bg-brand-card border border-brand-border p-6 rounded-2xl">
+            <div class="w-12 h-12 rounded-xl bg-brand-cyan/20 border border-brand-cyan/40 flex items-center justify-center text-brand-cyan text-xl mb-4">
+              <i class="fa-solid fa-microchip"></i>
+            </div>
+            <h3 class="font-display font-bold text-white text-lg">2. Automated POD Routing</h3>
+            <p class="text-slate-400 text-sm mt-2 leading-relaxed">
+              When students checkout, orders are routed straight to regional Printful/Printify print hubs, slashing freight emissions and waste.
+            </p>
+          </div>
+
+          <div class="bg-brand-card border border-brand-border p-6 rounded-2xl">
+            <div class="w-12 h-12 rounded-xl bg-amber-400/20 border border-amber-400/40 flex items-center justify-center text-amber-400 text-xl mb-4">
+              <i class="fa-solid fa-shield-halved"></i>
+            </div>
+            <h3 class="font-display font-bold text-white text-lg">3. Campus Quality Guarantee</h3>
+            <p class="text-slate-400 text-sm mt-2 leading-relaxed">
+              High GSM ring-spun cotton and double-needle stitching ensure your hoodie survives hundreds of wash cycles without print cracking.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- Slide-out Cart Drawer Backdrop -->
+  <div id="cart-drawer-backdrop" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 hidden opacity-0 transition-opacity duration-300">
+    <!-- Slide-out Cart Drawer -->
+    <div id="cart-drawer" class="fixed right-0 top-0 bottom-0 w-full max-w-md bg-brand-card border-l border-brand-border shadow-2xl flex flex-col transform translate-x-full transition-transform duration-300 ease-in-out">
+      
+      <!-- Cart Header -->
+      <div class="p-6 border-b border-brand-border flex items-center justify-between">
+        <div class="flex items-center gap-2.5">
+          <i class="fa-solid fa-bag-shopping text-brand-teal text-xl"></i>
+          <h3 class="font-display font-bold text-lg text-white">Your Spirit Bag</h3>
+          <span id="cart-drawer-count" class="bg-brand-surface text-brand-teal text-xs px-2 py-0.5 rounded-full font-mono border border-brand-border">0</span>
+        </div>
+        <button id="close-cart-btn" class="text-slate-400 hover:text-white p-2 rounded-lg" aria-label="Close Cart">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+
+      <!-- Cart Items List Container -->
+      <div id="cart-items-container" class="flex-1 overflow-y-auto p-6 space-y-4">
+        <!-- Rendered by JS -->
+      </div>
+
+      <!-- Cart Footer / Checkout -->
+      <div class="p-6 border-t border-brand-border bg-slate-950/50 space-y-4">
+        <!-- Discount coupon input -->
+        <div class="flex gap-2">
+          <input id="coupon-input" type="text" placeholder="Promo code (e.g. FUTURIST10)" class="flex-1 bg-slate-900 border border-brand-border rounded-xl px-3 py-2 text-xs text-white uppercase focus:outline-none focus:border-brand-teal font-mono">
+          <button onclick="applyCoupon()" class="bg-slate-800 hover:bg-slate-700 text-brand-teal text-xs font-bold px-3 py-2 rounded-xl border border-brand-border transition-colors">Apply</button>
+        </div>
+
+        <!-- Totals breakdown -->
+        <div class="space-y-1.5 text-xs text-slate-300">
+          <div class="flex justify-between">
+            <span>Subtotal</span>
+            <span id="cart-subtotal" class="font-semibold text-white">$0.00</span>
+          </div>
+          <div id="discount-row" class="hidden flex justify-between text-brand-teal">
+            <span>Discount (FUTURIST10 - 10%)</span>
+            <span id="cart-discount">-$0.00</span>
+          </div>
+          <div class="flex justify-between">
+            <span>Campus Delivery</span>
+            <span class="text-emerald-400 font-semibold">FREE</span>
+          </div>
+          <div class="flex justify-between text-sm font-bold text-white pt-2 border-t border-brand-border">
+            <span>Total</span>
+            <span id="cart-total" class="font-display text-base text-brand-teal">$0.00</span>
+          </div>
+        </div>
+
+        <button onclick="openCheckoutModal()" class="w-full py-3.5 bg-brand-teal hover:bg-brand-tealDark text-slate-950 font-display font-extrabold text-sm uppercase tracking-wider rounded-xl transition-all shadow-lg shadow-brand-teal/20 flex items-center justify-center gap-2">
+          <i class="fa-solid fa-lock text-xs"></i> Proceed To Instant Checkout
+        </button>
+        <p class="text-center text-[10px] text-slate-500 font-mono">Encrypted 256-Bit AI Print Router</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Checkout Success Modal -->
+  <div id="checkout-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-brand-card border border-brand-teal/50 rounded-3xl max-w-md w-full p-6 sm:p-8 text-center space-y-4 shadow-2xl relative">
+      <div class="w-16 h-16 rounded-full bg-brand-teal/20 border-2 border-brand-teal text-brand-teal flex items-center justify-center mx-auto text-2xl">
+        <i class="fa-solid fa-check"></i>
+      </div>
+      
+      <h3 class="text-2xl font-display font-extrabold text-white">Order Sent to Print Queue!</h3>
+      <p class="text-slate-300 text-xs sm:text-sm">
+        Your AI merch has been tokenized and routed to the direct-to-garment printer. You will receive a campus pickup notification via student email.
+      </p>
+
+      <div class="bg-slate-900 border border-brand-border rounded-xl p-3.5 text-left text-xs space-y-1 font-mono">
+        <div class="flex justify-between text-slate-400">
+          <span>Order ID:</span>
+          <span id="modal-order-id" class="text-brand-teal font-bold">#NX-89240</span>
+        </div>
+        <div class="flex justify-between text-slate-400">
+          <span>Routing Node:</span>
+          <span class="text-slate-200">DTG Hub Alpha (West Campus)</span>
+        </div>
+        <div class="flex justify-between text-slate-400">
+          <span>Est. Delivery:</span>
+          <span class="text-emerald-400 font-bold">2-3 Business Days</span>
+        </div>
+      </div>
+
+      <button onclick="closeCheckoutModal()" class="w-full py-3 bg-brand-teal text-slate-950 font-bold rounded-xl text-xs uppercase tracking-wider hover:bg-brand-tealDark transition-colors">
+        Back to Store
+      </button>
+    </div>
+  </div>
+
+  <footer class="bg-slate-950 border-t border-brand-border pt-12 pb-8 text-xs text-slate-400">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-10">
+        
+        <div class="space-y-3">
+          <div class="flex items-center gap-2">
+            <div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-brand-violet to-brand-teal flex items-center justify-center text-slate-950 font-bold">
+              <i class="fa-solid fa-microchip"></i>
+            </div>
+            <span class="font-display font-bold text-white text-base">NEXUS AI ACADEMY</span>
+          </div>
+          <p class="text-slate-400 leading-relaxed">
+            The next-generation campus store powered by generative AI art, print-on-demand scalability, and student innovation.
+          </p>
+        </div>
+
+        <div>
+          <h4 class="font-display font-bold text-white uppercase tracking-wider mb-3">Quick Navigation</h4>
+          <ul class="space-y-2">
+            <li><a href="#catalog" class="hover:text-brand-teal transition-colors">All Merch</a></li>
+            <li><a href="#customizer" class="hover:text-brand-teal transition-colors">Live Apparel Studio</a></li>
+            <li><a href="#prompt-lab" class="hover:text-brand-teal transition-colors">AI Prompt Generator</a></li>
+            <li><a href="#tech-specs" class="hover:text-brand-teal transition-colors">Sustainability & DTG</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="font-display font-bold text-white uppercase tracking-wider mb-3">Campus Hubs</h4>
+          <ul class="space-y-2">
+            <li><span class="text-slate-300">Esports Arena Store</span> (Building B)</li>
+            <li><span class="text-slate-300">Robotics Foundry</span> (Lab 4)</li>
+            <li><span class="text-slate-300">Support:</span> merch@nexus.academy</li>
+            <li><span class="text-slate-300">Hours:</span> Mon - Fri: 8am - 7pm</li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="font-display font-bold text-white uppercase tracking-wider mb-3">Design Drop Alert</h4>
+          <p class="text-slate-400 mb-3">Get pinged when new student AI graphic collections drop.</p>
+          <div class="flex gap-2">
+            <input type="email" placeholder="student@nexus.edu" class="bg-slate-900 border border-brand-border rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-brand-teal flex-1">
+            <button onclick="showToast('Subscribed to drop alerts! 🎉')" class="bg-brand-teal hover:bg-brand-tealDark text-slate-950 px-3.5 py-2 rounded-xl font-bold transition-colors">Join</button>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="border-t border-brand-border/60 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-slate-500">
+        <p>© 2026 Nexus AI Academy Spirit Store. Built with Tailwind CSS & Generative Vector AI.</p>
+        <div class="flex items-center gap-4 text-sm">
+          <a href="#" class="hover:text-brand-teal"><i class="fa-brands fa-discord"></i></a>
+          <a href="#" class="hover:text-brand-teal"><i class="fa-brands fa-github"></i></a>
+          <a href="#" class="hover:text-brand-teal"><i class="fa-brands fa-x-twitter"></i></a>
+          <a href="#" class="hover:text-brand-teal"><i class="fa-brands fa-instagram"></i></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    /* Global Application State */
+    const state = {
+      cart: [],
+      discountActive: false,
+      discountPercent: 0.10,
+      customizer: {
+        productType: 'hoodie',
+        graphicStyle: 'vintage',
+        color: '#131B2E',
+        colorName: 'Obsidian Navy',
+        customText: 'ACADEMY',
+        size: 'M',
+        basePrice: 52.00
+      }
+    };
+
+    /* Merch Catalog Products Database */
+    const products = [
+      {
+        id: 1,
+        title: "Quantum Tech-Fleece Hoodie",
+        category: "hoodies",
+        price: 52.00,
+        originalPrice: 68.00,
+        badge: "AI Best Seller",
+        prompt: "A flat vector badge logo for an innovative AI high school, sleek geometric owl intertwined with digital circuit lines, dark navy and teal.",
+        badgeColor: "bg-brand-teal text-slate-950",
+        type: "hoodie",
+        color: "#131B2E",
+        graphic: "owl",
+        text: "ACADEMY 2026"
+      },
+      {
+        id: 2,
+        title: "Retro Varsity Spirit Pullover",
+        category: "hoodies",
+        price: 49.00,
+        originalPrice: 62.00,
+        badge: "Distressed Vector",
+        prompt: "A vector-style typography design for school spirit hoodie, text ACADEMY in bold retro varsity athletic font, cherry red and golden yellow.",
+        badgeColor: "bg-amber-400 text-slate-950",
+        type: "hoodie",
+        color: "#8A1834",
+        graphic: "vintage",
+        text: "VARSITY"
+      },
+      {
+        id: 3,
+        title: "Neural Network Heavyweight Tee",
+        category: "tees",
+        price: 28.00,
+        originalPrice: 34.00,
+        badge: "100% Ring Cotton",
+        prompt: "Minimalist neural connection node crest for cyber academy, violet glow, clean 300 DPI apparel vector graphic.",
+        badgeColor: "bg-brand-violet text-white",
+        type: "tee",
+        color: "#0B0F19",
+        graphic: "neural",
+        text: "SYNAPSE"
+      },
+      {
+        id: 4,
+        title: "Binary Minimalist Crew Tee",
+        category: "tees",
+        price: 26.00,
+        originalPrice: 32.00,
+        badge: "Clean Tech",
+        prompt: "Geometric binary code emblem, cyber teal on pure carbon cotton, futuristic tech school aesthetic.",
+        badgeColor: "bg-cyan-400 text-slate-950",
+        type: "tee",
+        color: "#1A3B34",
+        graphic: "minimal",
+        text: "01001110"
+      },
+      {
+        id: 5,
+        title: "Hydro-Vacuum Thermal Bottle",
+        category: "accessories",
+        price: 32.00,
+        originalPrice: 40.00,
+        badge: "Laser Engraved",
+        prompt: "Laser cut geometric owl emblem on matte insulated stainless steel bottle, dual-wall 32oz.",
+        badgeColor: "bg-slate-700 text-brand-teal",
+        type: "bottle",
+        color: "#131B2E",
+        graphic: "owl",
+        text: "NEXUS 32OZ"
+      },
+      {
+        id: 6,
+        title: "Olympiad Math Team Hoodie",
+        category: "hoodies",
+        price: 54.00,
+        originalPrice: 65.00,
+        badge: "Club Edition",
+        prompt: "Golden ratio spiral integrated with matrix algorithms and school crest, gold ink on midnight black.",
+        badgeColor: "bg-indigo-500 text-white",
+        type: "hoodie",
+        color: "#0B0F19",
+        graphic: "vintage",
+        text: "OLYMPIAD"
+      },
+      {
+        id: 7,
+        title: "Cyberpunk Mascot Oversized Tee",
+        category: "tees",
+        price: 30.00,
+        originalPrice: 38.00,
+        badge: "Trendy Cut",
+        prompt: "Neon cyber falcon mascot wearing AR visor, dynamic streetwear vector style, ready for silkscreen print.",
+        badgeColor: "bg-rose-500 text-white",
+        type: "tee",
+        color: "#131B2E",
+        graphic: "owl",
+        text: "CYBER FALCON"
+      },
+      {
+        id: 8,
+        title: "Double-Wall Insulated Flask",
+        category: "accessories",
+        price: 29.00,
+        originalPrice: 36.00,
+        badge: "Eco Hydro",
+        prompt: "Minimal cyber lines and school initials laser etched on metallic gradient surface.",
+        badgeColor: "bg-brand-teal text-slate-950",
+        type: "bottle",
+        color: "#8A1834",
+        graphic: "minimal",
+        text: "HYDRATE 26"
+      }
+    ];
+
+    // Helper to generate dynamic SVG graphics based on user state
+    function renderApparelSvg(type, color, graphic, text) {
+      const textColor = (color === '#E2E8F0') ? '#0B0F19' : '#FFFFFF';
+      const accentColor = (color === '#8A1834') ? '#FBBF24' : '#00F5D4';
+
+      let baseGraphicSvg = '';
+
+      if (graphic === 'vintage') {
+        baseGraphicSvg = `
+          <g transform="translate(200, 190)">
+            <!-- Vintage Distressed Banner -->
+            <path d="M-80,-25 L80,-25 L70,25 L-70,25 Z" fill="${(color === '#8A1834') ? '#FBBF24' : '#00F5D4'}" opacity="0.9" />
+            <text x="0" y="7" fill="#0B0F19" font-family="'Outfit', sans-serif" font-weight="900" font-size="18" text-anchor="middle" letter-spacing="2">${escapeHtml(text || 'ACADEMY')}</text>
+            <text x="0" y="-32" fill="${textColor}" font-family="'Inter', sans-serif" font-weight="800" font-size="10" text-anchor="middle" letter-spacing="3">NEXUS SPIRIT</text>
+            <text x="0" y="42" fill="${textColor}" font-family="'Inter', sans-serif" font-weight="700" font-size="9" text-anchor="middle" letter-spacing="4">EST. 2026 • ATHLETICS</text>
+            <circle cx="-50" cy="38" r="2" fill="${accentColor}" />
+            <circle cx="50" cy="38" r="2" fill="${accentColor}" />
+          </g>
+        `;
+      } else if (graphic === 'owl') {
+        baseGraphicSvg = `
+          <g transform="translate(200, 185) scale(0.95)">
+            <circle cx="0" cy="0" r="46" fill="#0B0F19" stroke="${accentColor}" stroke-width="2.5" />
+            <!-- Cybernetic Owl Motif -->
+            <polygon points="0,-28 20,-10 20,18 0,38 -20,18 -20,-10" fill="#7B2CBF" opacity="0.75" />
+            <circle cx="-8" cy="2" r="5" fill="${accentColor}" />
+            <circle cx="8" cy="2" r="5" fill="${accentColor}" />
+            <circle cx="-8" cy="2" r="2" fill="#000" />
+            <circle cx="8" cy="2" r="2" fill="#000" />
+            <line x1="-30" y1="2" x2="-42" y2="2" stroke="${accentColor}" stroke-width="2" />
+            <line x1="30" y1="2" x2="42" y2="2" stroke="${accentColor}" stroke-width="2" />
+            <path d="M-15,-20 L0,-32 L15,-20" stroke="${accentColor}" stroke-width="2.5" fill="none" />
+            <!-- User Text Curved or Center -->
+            <text x="0" y="58" fill="${textColor}" font-family="'Outfit', sans-serif" font-weight="800" font-size="11" text-anchor="middle" letter-spacing="1.5">${escapeHtml(text || 'AI HIGH')}</text>
+          </g>
+        `;
+      } else if (graphic === 'neural') {
+        baseGraphicSvg = `
+          <g transform="translate(200, 185)">
+            <circle cx="0" cy="0" r="44" fill="#0A0F1D" stroke="#7B2CBF" stroke-width="2" stroke-dasharray="4,2" />
+            <!-- Neural Network Lines -->
+            <circle cx="0" cy="-18" r="6" fill="${accentColor}" />
+            <circle cx="-22" cy="12" r="6" fill="#7B2CBF" />
+            <circle cx="22" cy="12" r="6" fill="#00BBF9" />
+            <circle cx="0" cy="0" r="8" fill="${accentColor}" />
+            
+            <line x1="0" y1="-18" x2="0" y2="0" stroke="${accentColor}" stroke-width="2" />
+            <line x1="-22" y1="12" x2="0" y2="0" stroke="#7B2CBF" stroke-width="2" />
+            <line x1="22" y1="12" x2="0" y2="0" stroke="#00BBF9" stroke-width="2" />
+            <line x1="-22" y1="12" x2="22" y2="12" stroke="#475569" stroke-width="1.5" />
+            
+            <text x="0" y="32" fill="${textColor}" font-family="'Outfit', sans-serif" font-weight="800" font-size="10" text-anchor="middle" letter-spacing="2">${escapeHtml(text || 'SYNAPSE')}</text>
+          </g>
+        `;
+      } else {
+        // Minimalist Binary / Monogram
+        baseGraphicSvg = `
+          <g transform="translate(200, 185)">
+            <rect x="-42" y="-42" width="84" height="84" rx="16" fill="#0A0F1D" stroke="${accentColor}" stroke-width="2" />
+            <text x="0" y="2" fill="${accentColor}" font-family="'Outfit', sans-serif" font-weight="900" font-size="28" text-anchor="middle" letter-spacing="1">NX</text>
+            <text x="0" y="24" fill="${textColor}" font-family="'Inter', sans-serif" font-weight="600" font-size="8" text-anchor="middle" letter-spacing="1">01101001</text>
+            <text x="0" y="56" fill="${textColor}" font-family="'Outfit', sans-serif" font-weight="700" font-size="10" text-anchor="middle" letter-spacing="1">${escapeHtml(text || 'SYSTEMS')}</text>
+          </g>
+        `;
+      }
+
+      if (type === 'hoodie') {
+        return `
+          <!-- Hoodie Base Shape -->
+          <g filter="drop-shadow(0px 8px 16px rgba(0,0,0,0.5))">
+            <path d="M120,95 L145,50 L255,50 L280,95 L360,150 L315,200 L285,165 L285,340 L115,340 L115,165 L85,200 L40,150 Z" 
+                  fill="${color}" stroke="#334155" stroke-width="2.5" stroke-linejoin="round" />
+            <!-- Hood Collar details -->
+            <path d="M150,55 Q200,90 250,55 Q200,120 150,55" fill="${darkenColor(color, 20)}" stroke="#334155" stroke-width="2" />
+            <!-- Drawstrings -->
+            <path d="M185,100 L185,140" stroke="${accentColor}" stroke-width="2.5" stroke-linecap="round" />
+            <path d="M215,100 L215,140" stroke="${accentColor}" stroke-width="2.5" stroke-linecap="round" />
+            <!-- Kangaroo Pocket -->
+            <path d="M145,260 L255,260 L240,320 L160,320 Z" fill="${darkenColor(color, 15)}" stroke="#334155" stroke-width="1.5" />
+            <!-- Custom Graphic Center Print -->
+            ${baseGraphicSvg}
+          </g>
+        `;
+      } else if (type === 'tee') {
+        return `
+          <!-- Graphic Tee Base Shape -->
+          <g filter="drop-shadow(0px 8px 16px rgba(0,0,0,0.5))">
+            <path d="M125,80 L155,55 L245,55 L275,80 L350,125 L315,175 L275,145 L275,340 L125,340 L125,145 L85,175 L50,125 Z" 
+                  fill="${color}" stroke="#334155" stroke-width="2.5" stroke-linejoin="round" />
+            <!-- Crewneck Collar -->
+            <path d="M155,55 Q200,85 245,55 Q200,65 155,55" fill="${darkenColor(color, 25)}" stroke="#334155" stroke-width="2" />
+            <!-- Sleeve Stitching -->
+            <path d="M85,175 L125,145" stroke="#334155" stroke-width="1.5" />
+            <path d="M315,175 L275,145" stroke="#334155" stroke-width="1.5" />
+            <!-- Center Graphic Print -->
+            ${baseGraphicSvg}
+          </g>
+        `;
+      } else {
+        // Water Bottle
+        return `
+          <!-- Stainless Steel Water Bottle Shape -->
+          <g filter="drop-shadow(0px 8px 16px rgba(0,0,0,0.5))" transform="translate(50, 0)">
+            <!-- Bottle Cap -->
+            <rect x="135" y="45" width="30" height="25" rx="5" fill="#475569" stroke="#64748B" stroke-width="2" />
+            <rect x="140" y="32" width="20" height="15" rx="3" fill="#00F5D4" />
+            <!-- Bottle Neck -->
+            <path d="M135,70 L165,70 L180,95 L120,95 Z" fill="${darkenColor(color, 20)}" stroke="#334155" stroke-width="2" />
+            <!-- Bottle Body Cylinder -->
+            <rect x="110" y="95" width="80" height="235" rx="16" fill="${color}" stroke="#334155" stroke-width="2.5" />
+            <!-- Gloss Shine Highlight Reflection -->
+            <path d="M120,105 L128,105 L128,320 L120,320 Z" fill="#FFFFFF" opacity="0.12" />
+            <!-- Centered Emblem -->
+            <g transform="translate(-50, 10) scale(0.85)">
+              ${baseGraphicSvg}
+            </g>
+          </g>
+        `;
+      }
+    }
+
+    /* Helper color shading functions */
+    function darkenColor(hex, percent) {
+      if (hex.startsWith('#')) hex = hex.slice(1);
+      if (hex.length === 3) hex = hex.split('').map(c => c + c).join('');
+      let num = parseInt(hex, 16);
+      let r = Math.max(0, (num >> 16) - percent * 2);
+      let g = Math.max(0, ((num >> 8) & 0x00FF) - percent * 2);
+      let b = Math.max(0, (num & 0x0000FF) - percent * 2);
+      return `#${(g | (b << 8) | (r << 16)).toString(16).padStart(6, '0')}`;
+    }
+
+    function escapeHtml(string) {
+      return String(string).replace(/[&<>"']/g, function(s) {
+        return {
+          '&': '&amp;',
+          '<': '&lt;',
+          '>': '&gt;',
+          '"': '&quot;',
+          "'": '&#39;'
+        }[s];
+      });
+    }
+
+    function updateCustomizerPreview() {
+      const svgContainer = document.getElementById('interactive-mockup-svg');
+      if (svgContainer) {
+        svgContainer.innerHTML = renderApparelSvg(
+          state.customizer.productType,
+          state.customizer.color,
+          state.customizer.graphicStyle,
+          state.customizer.customText
+        );
+      }
+
+      // Update text tags
+      document.getElementById('selected-color-label').innerText = state.customizer.colorName;
+      
+      const styleNames = {
+        vintage: 'Retro Varsity',
+        owl: 'Cyber Owl',
+        neural: 'Neural Crest',
+        minimal: 'Binary Monogram'
+      };
+      document.getElementById('selected-graphic-label').innerText = styleNames[state.customizer.graphicStyle] || 'Custom';
+      document.getElementById('custom-price-tag').innerText = `$${state.customizer.basePrice.toFixed(2)}`;
+
+      const titles = {
+        hoodie: 'Heavyweight Varsity Spirit Hoodie',
+        tee: 'Neural Signature Streetwear Tee',
+        bottle: 'Hydro-Insulated 32oz Tech Flask'
+      };
+      document.getElementById('studio-product-title').innerText = titles[state.customizer.productType] || 'Custom Merch Item';
+    }
+
+    function setCustomProduct(type) {
+      state.customizer.productType = type;
+      if (type === 'hoodie') state.customizer.basePrice = 52.00;
+      else if (type === 'tee') state.customizer.basePrice = 28.00;
+      else if (type === 'bottle') state.customizer.basePrice = 32.00;
+
+      document.querySelectorAll('.product-type-btn').forEach(btn => {
+        if (btn.dataset.type === type) {
+          btn.classList.add('border-brand-teal', 'active');
+          btn.classList.remove('border-slate-700');
+        } else {
+          btn.classList.remove('border-brand-teal', 'active');
+          btn.classList.add('border-slate-700');
+        }
+      });
+      updateCustomizerPreview();
+    }
+
+    function setCustomGraphic(style) {
+      state.customizer.graphicStyle = style;
+      document.querySelectorAll('.graphic-style-btn').forEach(btn => {
+        if (btn.dataset.style === style) {
+          btn.classList.add('border-brand-teal', 'active');
+          btn.classList.remove('border-slate-700');
+        } else {
+          btn.classList.remove('border-brand-teal', 'active');
+          btn.classList.add('border-slate-700');
+        }
+      });
+      updateCustomizerPreview();
+    }
+
+    function setFabricColor(hex, name) {
+      state.customizer.color = hex;
+      state.customizer.colorName = name;
+      
+      document.querySelectorAll('.color-btn').forEach(btn => {
+        if (btn.dataset.color === hex) {
+          btn.classList.add('scale-110', 'ring-2', 'ring-brand-teal', 'border-white');
+          btn.classList.remove('border-slate-600');
+        } else {
+          btn.classList.remove('scale-110', 'ring-2', 'ring-brand-teal', 'border-white');
+          btn.classList.add('border-slate-600');
+        }
+      });
+      updateCustomizerPreview();
+    }
+
+    function updateCustomText(val) {
+      state.customizer.customText = val || 'ACADEMY';
+      updateCustomizerPreview();
+    }
+
+    function setSize(btn, size) {
+      state.customizer.size = size;
+      document.querySelectorAll('.size-btn').forEach(b => {
+        b.classList.remove('bg-brand-teal', 'text-slate-950', 'font-extrabold', 'border-brand-teal');
+        b.classList.add('bg-slate-800', 'text-slate-200');
+      });
+      btn.classList.remove('bg-slate-800', 'text-slate-200');
+      btn.classList.add('bg-brand-teal', 'text-slate-950', 'font-extrabold', 'border-brand-teal');
+    }
+
+    function resetCustomizer() {
+      state.customizer = {
+        productType: 'hoodie',
+        graphicStyle: 'vintage',
+        color: '#131B2E',
+        colorName: 'Obsidian Navy',
+        customText: 'ACADEMY',
+        size: 'M',
+        basePrice: 52.00
+      };
+      document.getElementById('custom-text-input').value = 'ACADEMY';
+      setCustomProduct('hoodie');
+      setCustomGraphic('vintage');
+      setFabricColor('#131B2E', 'Obsidian Navy');
+      showToast("Customizer reset to defaults.");
+    }
+
+    function renderCatalogGrid(itemsToRender) {
+      const container = document.getElementById('product-grid');
+      if (!container) return;
+
+      container.innerHTML = itemsToRender.map(item => `
+        <div class="bg-brand-card border border-brand-border hover:border-brand-teal/50 rounded-2xl p-5 flex flex-col justify-between transition-all duration-300 group hover:-translate-y-1 shadow-lg hover:shadow-brand-teal/10">
+          <div>
+            <!-- Badge & Type Header -->
+            <div class="flex items-center justify-between gap-2 mb-3">
+              <span class="${item.badgeColor} text-[10px] font-extrabold px-2.5 py-1 rounded-full uppercase tracking-wider font-mono">
+                ${item.badge}
+              </span>
+              <span class="text-xs text-slate-400 capitalize flex items-center gap-1 font-mono">
+                <i class="fa-solid fa-microchip text-[10px] text-brand-teal"></i> ${item.category}
+              </span>
+            </div>
+
+            <!-- Mini Interactive Mockup Thumbnail -->
+            <div class="bg-[#0A0E1A] rounded-xl p-3 flex items-center justify-center min-h-[190px] border border-brand-border/60 relative overflow-hidden group-hover:border-brand-teal/30 transition-colors">
+              <svg viewBox="0 0 400 400" class="w-40 h-40 transform group-hover:scale-105 transition-transform duration-300">
+                ${renderApparelSvg(item.type, item.color, item.graphic, item.text)}
+              </svg>
+              <!-- Quick Prompt Preview on hover -->
+              <div class="absolute inset-0 bg-slate-950/90 backdrop-blur-xs p-3.5 flex flex-col justify-between opacity-0 group-hover:opacity-100 transition-opacity text-[11px] text-slate-300">
+                <div>
+                  <span class="text-brand-teal font-mono font-bold block mb-1">AI Prompt Blueprint:</span>
+                  <p class="line-clamp-4 text-xs italic leading-relaxed text-slate-300">"${item.prompt}"</p>
+                </div>
+                <button onclick="copyToClipboard('${item.prompt.replace(/'/g, "\\'")}')" class="text-brand-cyan hover:underline text-[10px] font-mono text-left">
+                  <i class="fa-solid fa-copy"></i> Copy Prompt
+                </button>
+              </div>
+            </div>
+
+            <!-- Item Meta -->
+            <div class="mt-4">
+              <h3 class="font-display font-bold text-white text-base leading-snug group-hover:text-brand-teal transition-colors">
+                ${item.title}
+              </h3>
+              <p class="text-xs text-slate-400 mt-1 line-clamp-1">${item.text} • ${item.graphic.toUpperCase()} EDITION</p>
+            </div>
+          </div>
+
+          <!-- Price & Action CTA -->
+          <div class="mt-5 pt-4 border-t border-brand-border/80 flex items-center justify-between">
+            <div>
+              <span class="text-xs text-slate-500 line-through mr-1.5">$${item.originalPrice.toFixed(2)}</span>
+              <span class="text-lg font-display font-extrabold text-white group-hover:text-brand-teal transition-colors">$${item.price.toFixed(2)}</span>
+            </div>
+            
+            <div class="flex items-center gap-2">
+              <button onclick="loadIntoCustomizer(${item.id})" class="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white text-xs border border-slate-700 transition-colors" title="Customize this base">
+                <i class="fa-solid fa-sliders"></i>
+              </button>
+              <button onclick="quickAddToCart(${item.id})" class="bg-brand-teal hover:bg-brand-tealDark text-slate-950 font-bold px-3 py-2 rounded-xl text-xs transition-colors flex items-center gap-1.5 shadow-md">
+                <i class="fa-solid fa-cart-plus"></i> Add
+              </button>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function filterCatalog(category) {
+      document.querySelectorAll('.cat-pill').forEach(pill => {
+        pill.classList.remove('bg-brand-teal', 'text-slate-950', 'active');
+        pill.classList.add('bg-brand-card', 'text-slate-300', 'border', 'border-brand-border');
+      });
+      event.target.classList.add('bg-brand-teal', 'text-slate-950', 'active');
+      event.target.classList.remove('bg-brand-card', 'text-slate-300', 'border', 'border-brand-border');
+
+      if (category === 'all') {
+        renderCatalogGrid(products);
+      } else {
+        const filtered = products.filter(p => p.category === category);
+        renderCatalogGrid(filtered);
+      }
+    }
+
+    function loadIntoCustomizer(productId) {
+      const product = products.find(p => p.id === productId);
+      if (!product) return;
+      
+      setCustomProduct(product.type);
+      setCustomGraphic(product.graphic);
+      setFabricColor(product.color, 'Preset Hue');
+      updateCustomText(product.text);
+      document.getElementById('custom-text-input').value = product.text;
+
+      // Smooth scroll to customizer
+      document.getElementById('customizer').scrollIntoView({ behavior: 'smooth' });
+      showToast(`Loaded "${product.title}" into Live Studio!`);
+    }
+
+    function quickAddToCart(productId) {
+      const item = products.find(p => p.id === productId);
+      if (!item) return;
+
+      const cartItem = {
+        cartId: 'item-' + Date.now() + '-' + Math.random().toString(36).substr(2, 4),
+        id: item.id,
+        title: item.title,
+        price: item.price,
+        size: 'M',
+        color: item.color,
+        colorName: 'Standard Drop',
+        graphic: item.graphic,
+        text: item.text,
+        type: item.type,
+        quantity: 1
+      };
+
+      state.cart.push(cartItem);
+      updateCartUI();
+      openCartDrawer();
+      showToast(`Added ${item.title} to bag!`);
+    }
+
+    function addCustomizedProductToCart() {
+      const c = state.customizer;
+      const typeNames = {
+        hoodie: 'Custom Varsity Tech Hoodie',
+        tee: 'Custom Neural Graphic Tee',
+        bottle: 'Custom Hydro-Insulated Bottle'
+      };
+
+      const cartItem = {
+        cartId: 'custom-' + Date.now(),
+        id: 999,
+        title: typeNames[c.productType] || 'Custom Merch',
+        price: c.basePrice,
+        size: c.size,
+        color: c.color,
+        colorName: c.colorName,
+        graphic: c.graphicStyle,
+        text: c.customText,
+        type: c.productType,
+        quantity: 1
+      };
+
+      state.cart.push(cartItem);
+      updateCartUI();
+      openCartDrawer();
+      showToast(`Custom ${c.customText} design added to cart! 🎨`);
+    }
+
+    function updateCartItemQty(cartId, delta) {
+      const item = state.cart.find(i => i.cartId === cartId);
+      if (!item) return;
+      item.quantity += delta;
+      if (item.quantity <= 0) {
+        state.cart = state.cart.filter(i => i.cartId !== cartId);
+      }
+      updateCartUI();
+    }
+
+    function removeCartItem(cartId) {
+      state.cart = state.cart.filter(i => i.cartId !== cartId);
+      updateCartUI();
+      showToast("Item removed from bag.");
+    }
+
+    function applyCoupon() {
+      const input = document.getElementById('coupon-input');
+      const code = input.value.trim().toUpperCase();
+      if (code === 'FUTURIST10') {
+        state.discountActive = true;
+        document.getElementById('discount-row').classList.remove('hidden');
+        showToast('Promo code FUTURIST10 applied! 10% off ✨');
+        updateCartUI();
+      } else if (code === '') {
+        showToast('Please enter a coupon code.');
+      } else {
+        showToast('Invalid promo code. Try FUTURIST10');
+      }
+    }
+
+    function updateCartUI() {
+      const container = document.getElementById('cart-items-container');
+      const counter = document.getElementById('cart-counter');
+      const drawerCount = document.getElementById('cart-drawer-count');
+      const subtotalEl = document.getElementById('cart-subtotal');
+      const discountEl = document.getElementById('cart-discount');
+      const totalEl = document.getElementById('cart-total');
+
+      const totalItems = state.cart.reduce((sum, i) => sum + i.quantity, 0);
+      counter.innerText = totalItems;
+      drawerCount.innerText = totalItems;
+
+      if (state.cart.length === 0) {
+        container.innerHTML = `
+          <div class="h-64 flex flex-col items-center justify-center text-center text-slate-400 space-y-3">
+            <div class="w-16 h-16 rounded-full bg-slate-900 flex items-center justify-center text-2xl text-slate-600">
+              <i class="fa-solid fa-basket-shopping"></i>
+            </div>
+            <p class="text-sm font-medium text-slate-300">Your spirit cart is empty</p>
+            <p class="text-xs text-slate-500 max-w-xs">Explore the AI collection or configure your personalized school hoodie.</p>
+          </div>
+        `;
+        subtotalEl.innerText = '$0.00';
+        totalEl.innerText = '$0.00';
+        return;
+      }
+
+      let subtotal = 0;
+
+      container.innerHTML = state.cart.map(item => {
+        const itemTotal = item.price * item.quantity;
+        subtotal += itemTotal;
+
+        return `
+          <div class="bg-slate-900 border border-brand-border rounded-2xl p-3.5 flex gap-3.5 items-center">
+            <!-- Mini visual preview -->
+            <div class="w-16 h-16 bg-[#080C15] rounded-xl flex items-center justify-center p-1 border border-brand-border flex-shrink-0">
+              <svg viewBox="0 0 400 400" class="w-14 h-14">
+                ${renderApparelSvg(item.type, item.color, item.graphic, item.text)}
+              </svg>
+            </div>
+
+            <!-- Details -->
+            <div class="flex-1 min-w-0">
+              <h4 class="text-xs font-bold text-white truncate">${item.title}</h4>
+              <p class="text-[11px] text-slate-400 mt-0.5">${item.colorName} • Size: <strong class="text-brand-teal">${item.size}</strong></p>
+              <p class="text-[10px] text-brand-cyan font-mono mt-0.5 font-semibold">Graphic: "${item.text}"</p>
+              
+              <div class="flex items-center justify-between mt-2">
+                <div class="flex items-center gap-2 bg-slate-800 px-2 py-0.5 rounded-lg border border-slate-700">
+                  <button onclick="updateCartItemQty('${item.cartId}', -1)" class="text-slate-400 hover:text-white text-xs px-1">-</button>
+                  <span class="text-xs font-bold text-white font-mono">${item.quantity}</span>
+                  <button onclick="updateCartItemQty('${item.cartId}', 1)" class="text-slate-400 hover:text-white text-xs px-1">+</button>
+                </div>
+                <span class="text-xs font-extrabold text-white font-display">$${itemTotal.toFixed(2)}</span>
+              </div>
+            </div>
+
+            <button onclick="removeCartItem('${item.cartId}')" class="text-slate-500 hover:text-rose-400 p-1 text-xs self-start" title="Remove item">
+              <i class="fa-solid fa-trash-can"></i>
+            </button>
+          </div>
+        `;
+      }).join('');
+
+      let discount = 0;
+      if (state.discountActive) {
+        discount = subtotal * state.discountPercent;
+        discountEl.innerText = `-$${discount.toFixed(2)}`;
+      }
+
+      const total = Math.max(0, subtotal - discount);
+      subtotalEl.innerText = `$${subtotal.toFixed(2)}`;
+      totalEl.innerText = `$${total.toFixed(2)}`;
+    }
+
+    const cartDrawerBackdrop = document.getElementById('cart-drawer-backdrop');
+    const cartDrawer = document.getElementById('cart-drawer');
+
+    function openCartDrawer() {
+      cartDrawerBackdrop.classList.remove('hidden');
+      setTimeout(() => {
+        cartDrawerBackdrop.classList.remove('opacity-0');
+        cartDrawer.classList.remove('translate-x-full');
+      }, 10);
+    }
+
+    function closeCartDrawer() {
+      cartDrawerBackdrop.classList.add('opacity-0');
+      cartDrawer.classList.add('translate-x-full');
+      setTimeout(() => {
+        cartDrawerBackdrop.classList.add('hidden');
+      }, 300);
+    }
+
+    document.getElementById('open-cart-btn').addEventListener('click', openCartDrawer);
+    document.getElementById('close-cart-btn').addEventListener('click', closeCartDrawer);
+    cartDrawerBackdrop.addEventListener('click', (e) => {
+      if (e.target === cartDrawerBackdrop) closeCartDrawer();
+    });
+
+    /* Checkout Flow Modal */
+    function openCheckoutModal() {
+      if (state.cart.length === 0) {
+        showToast("Your cart is empty! Add an item first.");
+        return;
+      }
+      closeCartDrawer();
+      const randomOrderId = '#NX-' + Math.floor(10000 + Math.random() * 90000);
+      document.getElementById('modal-order-id').innerText = randomOrderId;
+      document.getElementById('checkout-modal').classList.remove('hidden');
+    }
+
+    function closeCheckoutModal() {
+      document.getElementById('checkout-modal').classList.add('hidden');
+      state.cart = [];
+      state.discountActive = false;
+      document.getElementById('discount-row').classList.add('hidden');
+      document.getElementById('coupon-input').value = '';
+      updateCartUI();
+    }
+
+    /* Toast Notification System */
+    function showToast(message) {
+      const container = document.getElementById('toast-container');
+      const toast = document.createElement('div');
+      toast.className = 'bg-brand-surface/95 border border-brand-teal/50 text-white px-4 py-3 rounded-2xl shadow-xl backdrop-blur-md flex items-center gap-3 transform translate-y-4 opacity-0 transition-all duration-300 pointer-events-auto';
+      toast.innerHTML = `
+        <div class="w-7 h-7 rounded-full bg-brand-teal/20 text-brand-teal flex items-center justify-center text-xs flex-shrink-0">
+          <i class="fa-solid fa-sparkles"></i>
+        </div>
+        <p class="text-xs font-medium flex-1">${escapeHtml(message)}</p>
+      `;
+      container.appendChild(toast);
+
+      // Animate in
+      setTimeout(() => {
+        toast.classList.remove('translate-y-4', 'opacity-0');
+      }, 20);
+
+      // Auto remove after 3.5s
+      setTimeout(() => {
+        toast.classList.add('translate-y-4', 'opacity-0');
+        setTimeout(() => toast.remove(), 300);
+      }, 3500);
+    }
+
+    const clubPromptsDatabase = {
+      "Robotics & Autonomous Systems": {
+        "Retro Varsity Athletic": "A vector-style typography design for a Robotics Academy championship hoodie, featuring the text 'ROBOTICS 2026' in a distressed varsity athletic font. Dual-tone cherry crimson and golden yellow, industrial gear motifs, isolated solid white background, 300 DPI, print-ready direct-to-garment apparel.",
+        "Cyberpunk Geometric Neon": "A flat vector mascot badge for a high school robotics foundry, featuring a sleek robotic eagle with glowing cyan fiber-optic wings and printed circuit lines. Dark navy background, neon teal accents, clean tech aesthetic, 300 DPI apparel design.",
+        "Minimalist Tech Emblem": "Minimalist high-tech logo for school AI laboratory, geometric microcontroller node with laser clean lines, monochrome white and neon teal on transparent background, graphic tee screenprint.",
+        "Japanese Mecha Emblem": "Futuristic mecha helm crest for varsity robotics team, bold kanji for 'Innovation', dynamic vector lines, sharp crimson and obsidian palette, merchandise print ready."
+      },
+      "Esports & Cyber Athletics": {
+        "Retro Varsity Athletic": "Vintage retro typography for varsity Esports team, bold athletic slab serif font reading 'NEXUS ESPORTS', distressed ink texture, collegiate gold and navy, print-ready vector file.",
+        "Cyberpunk Geometric Neon": "Aggressive cyberpunk gaming mascot logo, geometric cyber fox wearing augmented reality visor, vivid neon magenta and electric teal, sharp vector contours, isolated 300 DPI.",
+        "Minimalist Tech Emblem": "Clean minimalist D-pad crest fused with neural synapse icon, modern streetwear apparel badge, monochrome gradient, vector sticker and t-shirt graphic.",
+        "Japanese Mecha Emblem": "Retro 90s cyber arcade emblem with mecha wings, typography 'GAME OVER / RETRY', isometric vector art for school hoodie back-print."
+      },
+      "Quantum Computing & Math Society": {
+        "Retro Varsity Athletic": "Varsity athletics hoodie crest for Mathematics and Quantum Guild, bold typography 'MATH OLYMPIAD', integrated golden ratio spiral, vintage textured cherry red ink.",
+        "Cyberpunk Geometric Neon": "Qubit quantum superposition sphere rendered as glowing vector badge, neon cyan and deep indigo, sleek high-school STEM merch design, print-ready.",
+        "Minimalist Tech Emblem": "Clean minimalist infinity and matrix symbol intertwined, crisp vector strokes, dark carbon background, tech hoodie chest print.",
+        "Japanese Mecha Emblem": "Quantum computing core styled as futuristic mechanical seal, concentric circular runes with binary code, vector apparel graphics."
+      },
+      "Biotech & Synthetic Biology": {
+        "Retro Varsity Athletic": "Varsity sports style graphic tee logo, featuring 'BIOTECH LAB' in arched bold block letters, distressed double helix mascot, vintage collegiate green and cream.",
+        "Cyberpunk Geometric Neon": "Geometric glowing DNA double helix fused with cybernetic circuit traces, flat vector sticker design for school lab merchandise, electric teal and lime.",
+        "Minimalist Tech Emblem": "Minimal vector icon of a biomechanical leaf with circuitry veins, clean lines, high-frequency aesthetic for student water bottle.",
+        "Japanese Mecha Emblem": "Synthetic biology research guild insignia, mecha styled crispr molecule, dramatic contrast, streetwear collection graphic."
+      }
+    };
+
+    function generateClubPrompt() {
+      const club = document.getElementById('prompt-club-select').value;
+      const aesthetic = document.getElementById('prompt-aesthetic-select').value;
+      const output = document.getElementById('generated-prompt-output');
+      
+      const promptText = clubPromptsDatabase[club]?.[aesthetic] || 
+        `Vector badge logo for ${club}, ${aesthetic} style, clean lines, 300 DPI print-ready for merchandise.`;
+      
+      output.innerText = promptText;
+    }
+
+    function copyGeneratedPrompt() {
+      const output = document.getElementById('generated-prompt-output').innerText;
+      copyToClipboard(output);
+      const btnText = document.getElementById('copy-btn-text');
+      btnText.innerText = "Copied!";
+      setTimeout(() => btnText.innerText = "Copy Prompt", 2000);
+    }
+
+    function copyToClipboard(text) {
+      // Safe iframe clipboard fallback
+      const textArea = document.createElement("textarea");
+      textArea.value = text;
+      textArea.style.position = "fixed";
+      textArea.style.left = "-999999px";
+      textArea.style.top = "-999999px";
+      document.body.appendChild(textArea);
+      textArea.focus();
+      textArea.select();
+      try {
+        document.execCommand('copy');
+        showToast("Prompt copied to clipboard! 📋");
+      } catch (err) {
+        showToast("Prompt ready to copy.");
+      }
+      textArea.remove();
+    }
+
+    /* Mobile Menu Toggle */
+    document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+      const menu = document.getElementById('mobile-menu');
+      menu.classList.toggle('hidden');
+    });
+
+    document.querySelectorAll('.mobile-nav-link').forEach(link => {
+      link.addEventListener('click', () => {
+        document.getElementById('mobile-menu').classList.add('hidden');
+      });
+    });
+
+    window.onload = function() {
+      // Initialize dynamic views
+      updateCustomizerPreview();
+      renderCatalogGrid(products);
+      generateClubPrompt();
+      updateCartUI();
+    };
+  </script>
+</body>
+</html>
